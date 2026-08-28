@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": true,
+    "paths": {
+      "@oss-error-registry/cli": ["./packages/cli/src/index.ts"],
+      "@oss-error-registry/core": ["./packages/core/src/index.ts"],
+      "@oss-error-registry/registry": ["./packages/registry/src/index.ts"],
+      "@oss-error-registry/reporter": ["./packages/reporter/src/index.ts"]
+    }
+  },
+  "include": ["packages/*/src/**/*.ts", "tests/**/*.ts", "vitest.config.ts"]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@oss-error-registry/cli",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@oss-error-registry/core": "workspace:*",
+    "@oss-error-registry/registry": "workspace:*",
+    "@oss-error-registry/reporter": "workspace:*"
+  }
+}

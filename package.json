@@ -1,0 +1,29 @@
+{
+  "name": "oss-error-registry",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=11"
+  },
+  "scripts": {
+    "build": "tsc -b --force --pretty false",
+    "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run",
+    "typecheck": "tsc --project tsconfig.check.json --noEmit --pretty false"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "20.19.11",
+    "eslint": "10.9.0",
+    "prettier": "3.6.2",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.67.0",
+    "vitest": "3.2.4"
+  }
+}
