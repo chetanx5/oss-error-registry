@@ -1,8 +1,15 @@
-/** A minimal package descriptor used only to verify workspace wiring. */
-export interface WorkspacePackageDescriptor {
-  readonly name: string;
-}
-
-export const corePackage = {
-  name: "@oss-error-registry/core",
-} as const satisfies WorkspacePackageDescriptor;
+export { defineDetector, definePlugin } from "./define.js";
+export type {
+  DetectorDefinition,
+  DetectorMatchDefinition,
+  DetectorPlugin,
+  DiagnosticStep,
+  DocumentationReference,
+  EvidenceRule,
+  NonEmptyArray,
+  RegexPattern,
+  RemediationSafety,
+  RemediationSuggestion,
+  SubstringPattern,
+  TextPattern,
+} from "./detector.js";
