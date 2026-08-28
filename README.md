@@ -29,7 +29,7 @@ first public release.
 
 Requirements:
 
-- Node.js 20.19 or newer
+- Node.js 22.13.0 or newer
 - pnpm 11 or newer
 
 Install dependencies and validate the workspace:
