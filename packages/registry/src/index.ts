@@ -1,10 +1,7 @@
-import {
-  corePackage,
-  type WorkspacePackageDescriptor,
-} from "@oss-error-registry/core";
-
 export const registryPackage = {
   name: "@oss-error-registry/registry",
-} as const satisfies WorkspacePackageDescriptor;
+} as const;
 
-export const registryWorkspaceDependencies = [corePackage.name] as const;
+export const registryWorkspaceDependencies = [
+  "@oss-error-registry/core",
+] as const;

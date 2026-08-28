@@ -8,8 +8,9 @@ LLM, API key, database, login, or external service. Detector definitions will be
 deterministic and contributor-friendly, with fixtures and tests kept alongside
 each detector.
 
-> **Project status:** repository foundation only. The detector engine, built-in
-> registry, reporters, and command-line behavior have not been implemented yet.
+> **Project status:** the declarative detector contract and runtime validation
+> are under development. Matching, scoring, the built-in registry, reporters,
+> and command-line behavior have not been implemented yet.
 
 ## Workspace
 
@@ -18,6 +19,9 @@ each detector.
 - `packages/reporter` — future structured and human-readable output
 - `packages/cli` — the future command-line entry point
 
+The current detector definition contract is described in
+[`docs/detector-contract.md`](docs/detector-contract.md).
+
 The current package names are private workspace names and may change before the
 first public release.
 
@@ -25,7 +29,7 @@ first public release.
 
 Requirements:
 
-- Node.js 20.19 or newer
+- Node.js 22.13.0 or newer
 - pnpm 11 or newer
 
 Install dependencies and validate the workspace:

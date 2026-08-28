@@ -1,16 +1,9 @@
-import {
-  corePackage,
-  type WorkspacePackageDescriptor,
-} from "@oss-error-registry/core";
-import { registryPackage } from "@oss-error-registry/registry";
-import { reporterPackage } from "@oss-error-registry/reporter";
-
 export const cliPackage = {
   name: "@oss-error-registry/cli",
-} as const satisfies WorkspacePackageDescriptor;
+} as const;
 
 export const cliWorkspaceDependencies = [
-  corePackage.name,
-  registryPackage.name,
-  reporterPackage.name,
+  "@oss-error-registry/core",
+  "@oss-error-registry/registry",
+  "@oss-error-registry/reporter",
 ] as const;
