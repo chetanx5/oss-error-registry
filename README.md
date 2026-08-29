@@ -8,9 +8,9 @@ LLM, API key, database, login, or external service. Detector definitions will be
 deterministic and contributor-friendly, with fixtures and tests kept alongside
 each detector.
 
-> **Project status:** the declarative detector contract and runtime validation
-> are under development. Matching, scoring, the built-in registry, reporters,
-> and command-line behavior have not been implemented yet.
+> **Project status:** the declarative detector contract, runtime validation, and
+> bounded deterministic matching engine are implemented. The built-in registry,
+> reporters, and command-line behavior have not been implemented yet.
 
 ## Workspace
 
@@ -20,7 +20,9 @@ each detector.
 - `packages/cli` — the future command-line entry point
 
 The current detector definition contract is described in
-[`docs/detector-contract.md`](docs/detector-contract.md).
+[`docs/detector-contract.md`](docs/detector-contract.md). Matching, scoring,
+ordering, and safety bounds are described in
+[`docs/matching-engine.md`](docs/matching-engine.md).
 
 The current package names are private workspace names and may change before the
 first public release.
