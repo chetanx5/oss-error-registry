@@ -3,21 +3,17 @@ import { describe, expect, it } from "vitest";
 import { cliPackage, cliWorkspaceDependencies } from "@oss-error-registry/cli";
 import * as core from "@oss-error-registry/core";
 import { builtInDetectors } from "@oss-error-registry/registry";
-import {
-  reporterPackage,
-  reporterWorkspaceDependencies,
-} from "@oss-error-registry/reporter";
+import * as reporter from "@oss-error-registry/reporter";
 
 describe("workspace foundation", () => {
   it("imports every package through its workspace name", () => {
-    expect([reporterPackage.name, cliPackage.name]).toEqual([
-      "@oss-error-registry/reporter",
-      "@oss-error-registry/cli",
-    ]);
+    expect(cliPackage.name).toBe("@oss-error-registry/cli");
     expect(builtInDetectors).toBeInstanceOf(Array);
     expect(core.analyze).toBeTypeOf("function");
     expect(core.defineDetector).toBeTypeOf("function");
     expect(core.definePlugin).toBeTypeOf("function");
+    expect(reporter.formatJson).toBeTypeOf("function");
+    expect(reporter.formatPretty).toBeTypeOf("function");
     expect(Object.keys(core).sort()).toEqual([
       "AnalysisError",
       "AnalysisInputError",
@@ -39,7 +35,6 @@ describe("workspace foundation", () => {
   });
 
   it("preserves the planned dependency direction", () => {
-    expect(reporterWorkspaceDependencies).toEqual(["@oss-error-registry/core"]);
     expect(cliWorkspaceDependencies).toEqual([
       "@oss-error-registry/core",
       "@oss-error-registry/registry",
