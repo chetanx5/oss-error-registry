@@ -22,9 +22,24 @@ describe("workspace foundation", () => {
       "@oss-error-registry/reporter",
       "@oss-error-registry/cli",
     ]);
+    expect(core.analyze).toBeTypeOf("function");
     expect(core.defineDetector).toBeTypeOf("function");
     expect(core.definePlugin).toBeTypeOf("function");
     expect(Object.keys(core).sort()).toEqual([
+      "AnalysisError",
+      "AnalysisInputError",
+      "AnalysisInputTooLargeError",
+      "AnalysisOptionsError",
+      "AnalysisWorkLimitError",
+      "DEFAULT_MAX_PATTERN_EVALUATIONS",
+      "DEFAULT_MAX_RESULTS",
+      "DetectorCollectionError",
+      "MAX_ANALYSIS_DETECTORS",
+      "MAX_ANALYSIS_INPUT_BYTES",
+      "MAX_ANALYSIS_PATTERNS_PER_DETECTOR",
+      "MAX_ANALYSIS_PATTERN_EVALUATIONS",
+      "MAX_ANALYSIS_RESULTS",
+      "analyze",
       "defineDetector",
       "definePlugin",
     ]);

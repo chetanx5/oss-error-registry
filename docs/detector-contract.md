@@ -1,9 +1,9 @@
 # Detector contract
 
 Detectors are declarative, serializable descriptions of recognizable developer
-errors. A detector records textual evidence and the guidance to return when a
-future matching engine identifies that evidence. Detector definitions cannot
-provide callbacks, lifecycle hooks, or executable matching code.
+errors. A detector records textual evidence and the guidance to return when the
+matching engine identifies that evidence. Detector definitions cannot provide
+callbacks, lifecycle hooks, or executable matching code.
 
 The contract is exported by `@oss-error-registry/core`. `defineDetector()` and
 `definePlugin()` validate definitions at runtime and freeze accepted objects to
@@ -32,16 +32,20 @@ Each evidence rule has a unique ID, description, integer weight from 1 through
 
 Required evidence acts as a gate: a detector cannot match when any required rule
 is absent. Optional evidence can strengthen a diagnosis. The threshold is the
-minimum evidence-point total a future matching engine will require. Confidence
-scoring and matching are intentionally outside this contract phase.
+minimum evidence score the matching engine requires. A score is a deterministic
+sum of matched evidence weights, not a probability or statistical confidence.
 
 Exclusions are text patterns that veto a detector when present. They help
 prevent a signature from claiming similar output produced by another tool.
 
 Regex flags are restricted to `i`, `m`, and `u`. Validation compiles regexes,
 limits their length, and rejects numeric backreferences and common nested
-quantifiers. These checks reduce obvious risk; a future matcher must still bound
-input size and execution work.
+quantifiers. These checks reduce obvious risk; the matcher also bounds input
+size and pattern-evaluation work. They do not mathematically eliminate every
+possible regular-expression denial-of-service condition.
+
+The complete matching semantics are documented in
+[`matching-engine.md`](matching-engine.md).
 
 ## Guidance
 
