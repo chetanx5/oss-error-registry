@@ -124,9 +124,10 @@ The dependency direction is:
 reporter -> core public result types
 ```
 
-Reporter does not depend on the registry or CLI. A future CLI may choose one of
-the reporter formats after it has obtained an `AnalysisResult`, but CLI input,
-argument parsing, and output selection are outside this phase.
+Reporter does not depend on the registry or CLI. The repository CLI chooses one
+of the reporter formats after it has obtained an `AnalysisResult`, while keeping
+input, argument parsing, and output selection outside the reporter. See
+[`cli.md`](cli.md).
 
 ## Synthetic example
 
@@ -170,5 +171,5 @@ const result = {
 const text = formatPretty(result);
 ```
 
-This example formats already-structured synthetic data. It does not imply that
-command-line input or output behavior is implemented.
+This example formats already-structured synthetic data directly. CLI behavior is
+documented separately in [`cli.md`](cli.md).

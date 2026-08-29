@@ -1,9 +1,3 @@
-export const cliPackage = {
-  name: "@oss-error-registry/cli",
-} as const;
-
-export const cliWorkspaceDependencies = [
-  "@oss-error-registry/core",
-  "@oss-error-registry/registry",
-  "@oss-error-registry/reporter",
-] as const;
+export { CLI_EXIT_CODE, runCli } from "./run.js";
+export type { CliExitCode } from "./run.js";
+export type { CliRuntime } from "./runtime.js";
