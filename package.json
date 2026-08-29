@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tsc -b --force --pretty false",
     "check": "pnpm run registry:check && pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
+    "cli": "node packages/cli/dist/bin.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --max-warnings 0",
