@@ -716,11 +716,14 @@ describe("cases.json and fixture validation", () => {
   });
 
   it("rejects a symbolic-link fixture without following it", async () => {
-    const root = await createTemporaryRoot();
-    const detectorDirectory = await createDetectorTree(root, "npm/example", {
-      fixtures: {},
-    });
-    const outsideFixture = path.join(root, "outside.log");
+    const workspaceRoot = await createTemporaryRoot();
+    const detectorsRoot = path.join(workspaceRoot, "detectors");
+    const detectorDirectory = await createDetectorTree(
+      detectorsRoot,
+      "npm/example",
+      { fixtures: {} },
+    );
+    const outsideFixture = path.join(workspaceRoot, "outside.log");
     const linkedFixture = path.join(
       detectorDirectory,
       "fixtures",
@@ -741,8 +744,35 @@ describe("cases.json and fixture validation", () => {
       throw error;
     }
 
-    await expect(validateRegistryFilesystem(root)).rejects.toThrowError(
-      "must be a regular file",
+    await expect(
+      validateRegistryFilesystem(detectorsRoot),
+    ).rejects.toThrowError("must be a regular file");
+  });
+
+  it("reports a symlink entry type before validating its directory name", async () => {
+    const workspaceRoot = await createTemporaryRoot();
+    const detectorsRoot = path.join(workspaceRoot, "detectors");
+    const outsideFixture = path.join(workspaceRoot, "outside.log");
+    const linkedEntry = path.join(detectorsRoot, "Outside.log");
+    await mkdir(detectorsRoot);
+    await writeFile(outsideFixture, "outside detector tree\n", "utf8");
+    try {
+      await symlink(outsideFixture, linkedEntry, "file");
+    } catch (error) {
+      if (
+        error !== null &&
+        typeof error === "object" &&
+        ["EACCES", "ENOSYS", "EPERM"].includes(error.code)
+      ) {
+        return;
+      }
+      throw error;
+    }
+
+    await expect(
+      discoverDetectorDirectories(detectorsRoot),
+    ).rejects.toThrowError(
+      'Ecosystem directory "Outside.log": must be a real directory',
     );
   });
 });

@@ -412,10 +412,10 @@ export async function discoverDetectorDirectories(detectorsRoot) {
 
   for (const ecosystemEntry of ecosystemEntries) {
     const ecosystem = ecosystemEntry.name;
-    assertKebabName(ecosystem, `Ecosystem directory "${ecosystem}"`);
     if (!ecosystemEntry.isDirectory() || ecosystemEntry.isSymbolicLink()) {
       fail(`Ecosystem directory "${ecosystem}"`, "must be a real directory");
     }
+    assertKebabName(ecosystem, `Ecosystem directory "${ecosystem}"`);
 
     const ecosystemDirectory = path.join(detectorsRoot, ecosystem);
     const detectorEntries = await readdir(ecosystemDirectory, {
@@ -423,16 +423,16 @@ export async function discoverDetectorDirectories(detectorsRoot) {
     });
     for (const detectorEntry of detectorEntries) {
       const detectorName = detectorEntry.name;
-      assertKebabName(
-        detectorName,
-        `Detector directory "${ecosystem}/${detectorName}"`,
-      );
       if (!detectorEntry.isDirectory() || detectorEntry.isSymbolicLink()) {
         fail(
           `Detector directory "${ecosystem}/${detectorName}"`,
           "must be a real directory",
         );
       }
+      assertKebabName(
+        detectorName,
+        `Detector directory "${ecosystem}/${detectorName}"`,
+      );
 
       const detectorId = `${ecosystem}/${detectorName}`;
       const entry = Object.freeze({
