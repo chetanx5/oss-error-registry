@@ -1,0 +1,5 @@
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR! While resolving: example-app@1.0.0
+npm ERR! Found: react@18.3.1
+npm ERR! Could not resolve dependency: peer react@"^17.0.0" from example-plugin@2.0.0

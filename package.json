@@ -10,10 +10,12 @@
   },
   "scripts": {
     "build": "tsc -b --force --pretty false",
-    "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
+    "check": "pnpm run registry:check && pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --max-warnings 0",
+    "registry:check": "node packages/registry/scripts/generate-registry-index.mjs --check",
+    "registry:generate": "node packages/registry/scripts/generate-registry-index.mjs",
     "test": "vitest run",
     "typecheck": "tsc --project tsconfig.check.json --noEmit --pretty false"
   },

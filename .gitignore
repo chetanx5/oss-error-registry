@@ -15,6 +15,8 @@ coverage/
 # Logs
 *.log
 pnpm-debug.log*
+!packages/registry/src/detectors/*/*/fixtures/positive/*.log
+!packages/registry/src/detectors/*/*/fixtures/negative/*.log
 
 # Editors and operating systems
 .idea/
