@@ -1,0 +1,2 @@
+YN0002: example-app@workspace:. doesn't provide react, requested by example-plugin
+Some peer dependencies are incorrectly met; run yarn explain peer-requirements for details.

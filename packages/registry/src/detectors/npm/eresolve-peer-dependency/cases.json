@@ -1,0 +1,20 @@
+{
+  "detectorId": "npm/eresolve-peer-dependency",
+  "cases": [
+    {
+      "name": "standard dependency tree conflict",
+      "fixture": "fixtures/positive/basic.log",
+      "expect": {
+        "match": true,
+        "score": 90
+      }
+    },
+    {
+      "name": "similar yarn peer dependency warning",
+      "fixture": "fixtures/negative/yarn.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}
