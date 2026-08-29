@@ -87,6 +87,11 @@ describe("deterministic result ordering", () => {
       "title",
       "score",
       "matchedEvidenceIds",
+      "explanation",
+      "likelyCauses",
+      "diagnosticSteps",
+      "remediation",
+      "documentation",
     ]);
   });
 });
@@ -145,20 +150,38 @@ describe("bounded and immutable results", () => {
     ).toHaveLength(MAX_ANALYSIS_RESULTS);
   });
 
-  it("freezes structured results and nested evidence ID arrays", () => {
+  it("deeply freezes structured results and diagnostic guidance", () => {
     const detector = createRankedDetector("test/frozen-result", 50);
     const result = analyze("shared signal", [detector]);
+    const match = result.matches[0];
 
     expect(Object.isFrozen(result)).toBe(true);
     expect(Object.isFrozen(result.matches)).toBe(true);
-    expect(Object.isFrozen(result.matches[0])).toBe(true);
-    expect(Object.isFrozen(result.matches[0]?.matchedEvidenceIds)).toBe(true);
+    expect(Object.isFrozen(match)).toBe(true);
+    expect(Object.isFrozen(match?.matchedEvidenceIds)).toBe(true);
+    expect(Object.isFrozen(match?.likelyCauses)).toBe(true);
+    expect(Object.isFrozen(match?.diagnosticSteps)).toBe(true);
+    expect(Object.isFrozen(match?.diagnosticSteps[0])).toBe(true);
+    expect(Object.isFrozen(match?.remediation)).toBe(true);
+    expect(Object.isFrozen(match?.remediation[0])).toBe(true);
+    expect(Object.isFrozen(match?.documentation)).toBe(true);
+    expect(Object.isFrozen(match?.documentation[0])).toBe(true);
     expect(Reflect.set(result, "matches", [])).toBe(false);
     expect(Reflect.set(result.matches, "0", undefined)).toBe(false);
-    expect(Reflect.set(result.matches[0] ?? {}, "score", 0)).toBe(false);
+    expect(Reflect.set(match ?? {}, "score", 0)).toBe(false);
+    expect(Reflect.set(match?.matchedEvidenceIds ?? [], "0", "changed")).toBe(
+      false,
+    );
+    expect(Reflect.set(match?.likelyCauses ?? [], "0", "changed")).toBe(false);
     expect(
-      Reflect.set(result.matches[0]?.matchedEvidenceIds ?? [], "0", "changed"),
+      Reflect.set(match?.diagnosticSteps[0] ?? {}, "description", "changed"),
     ).toBe(false);
+    expect(
+      Reflect.set(match?.remediation[0] ?? {}, "description", "changed"),
+    ).toBe(false);
+    expect(Reflect.set(match?.documentation[0] ?? {}, "title", "changed")).toBe(
+      false,
+    );
   });
 });
 
@@ -184,6 +207,53 @@ describe("analysis side-effect safety", () => {
     analyze("shared signal", detectors);
 
     expect(detectors).toEqual(before);
+  });
+
+  it("snapshots guidance from mutable detector definitions", () => {
+    const detector = structuredClone(
+      createTestDetector({
+        id: "test/guidance-snapshot",
+        evidence: [substringEvidence("signal", "shared signal", 50)],
+        diagnosticCommand: "inspect --before",
+        remediationCommand: "repair --before",
+      }),
+    );
+    const match = analyze("shared signal", [detector]).matches[0]!;
+
+    expect(match.likelyCauses).not.toBe(detector.likelyCauses);
+    expect(match.diagnosticSteps).not.toBe(detector.diagnosticSteps);
+    expect(match.remediation).not.toBe(detector.remediation);
+    expect(match.documentation).not.toBe(detector.documentation);
+
+    Reflect.set(detector, "explanation", "changed");
+    Reflect.set(detector.likelyCauses, "0", "changed");
+    Reflect.set(detector.diagnosticSteps[0]!, "description", "changed");
+    Reflect.set(detector.remediation[0]!, "description", "changed");
+    Reflect.set(detector.documentation[0]!, "title", "changed");
+
+    expect(match).toMatchObject({
+      explanation: "A test-only detector used to exercise matching semantics.",
+      likelyCauses: ["A test-only cause."],
+      diagnosticSteps: [
+        {
+          description: "Inspect the test input.",
+          command: "inspect --before",
+        },
+      ],
+      remediation: [
+        {
+          description: "Review the test-only remediation.",
+          safety: "review",
+          command: "repair --before",
+        },
+      ],
+      documentation: [
+        {
+          title: "Test-only documentation",
+          url: "https://example.com/test-detector",
+        },
+      ],
+    });
   });
 
   it("accepts empty, frozen, and manually constructed detector collections", () => {

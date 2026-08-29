@@ -20,7 +20,10 @@ import {
 } from "./analysis.js";
 import type {
   DetectorDefinition,
+  DiagnosticStep,
+  DocumentationReference,
   EvidenceRule,
+  RemediationSuggestion,
   TextPattern,
 } from "./detector.js";
 import { assertDetectorDefinition } from "./validation.js";
@@ -318,6 +321,48 @@ function evaluateEvidence(
   return matchesPattern(evidence.pattern, context);
 }
 
+function copyDiagnosticSteps(
+  steps: readonly DiagnosticStep[],
+): readonly DiagnosticStep[] {
+  return Object.freeze(
+    steps.map((step) =>
+      Object.freeze({
+        description: step.description,
+        ...(step.command === undefined ? {} : { command: step.command }),
+      }),
+    ),
+  );
+}
+
+function copyRemediation(
+  suggestions: readonly RemediationSuggestion[],
+): readonly RemediationSuggestion[] {
+  return Object.freeze(
+    suggestions.map((suggestion) =>
+      Object.freeze({
+        description: suggestion.description,
+        safety: suggestion.safety,
+        ...(suggestion.command === undefined
+          ? {}
+          : { command: suggestion.command }),
+      }),
+    ),
+  );
+}
+
+function copyDocumentation(
+  references: readonly DocumentationReference[],
+): readonly DocumentationReference[] {
+  return Object.freeze(
+    references.map((reference) =>
+      Object.freeze({
+        title: reference.title,
+        url: reference.url,
+      }),
+    ),
+  );
+}
+
 function evaluateDetector(
   detector: DetectorDefinition,
   context: MatchingContext,
@@ -359,6 +404,11 @@ function evaluateDetector(
     title: detector.title,
     score,
     matchedEvidenceIds: Object.freeze(matchedEvidenceIds),
+    explanation: detector.explanation,
+    likelyCauses: Object.freeze([...detector.likelyCauses]),
+    diagnosticSteps: copyDiagnosticSteps(detector.diagnosticSteps),
+    remediation: copyRemediation(detector.remediation),
+    documentation: copyDocumentation(detector.documentation),
   });
 }
 

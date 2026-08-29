@@ -64,10 +64,18 @@ Matches are ordered by score descending, then by ASCII detector ID ascending.
 Duplicate detector IDs are rejected so ordering remains unambiguous. Results do
 not contain timestamps, random identifiers, or filesystem paths.
 
+Each match contains the detector ID, ecosystem, title, evidence score, matched
+evidence IDs, explanation, likely causes, diagnostic steps, remediation
+suggestions, and documentation references. Guidance is copied from the validated
+detector into the result; matching patterns and other implementation-only
+definition fields are not included.
+
 The default result limit is `DEFAULT_MAX_RESULTS` (10). `maxResults` accepts an
 integer from 1 through `MAX_ANALYSIS_RESULTS` (100). The engine retains only the
 best requested number of matches while it evaluates the complete collection.
-Returned result objects and arrays are frozen.
+Returned result objects, arrays, diagnostic items, remediation items, and
+documentation items are frozen. Guidance is snapshotted so a mutable manually
+constructed detector cannot change an existing analysis result after matching.
 
 ## Work bounds and errors
 
@@ -88,5 +96,5 @@ regular expression. Detector validation rejects common dangerous constructs, but
 detector authors must still prefer simple, anchored patterns.
 
 Diagnostic and remediation `command` fields remain inert metadata. The engine
-does not import a process API, invoke a shell, evaluate strings, or return those
-commands in match results.
+returns those strings as part of the diagnostic guidance, but does not import a
+process API, invoke a shell, or evaluate them.

@@ -9,15 +9,15 @@ deterministic and contributor-friendly, with fixtures and tests kept alongside
 each detector.
 
 > **Project status:** the declarative detector contract, bounded deterministic
-> matching engine, and production registry architecture are implemented. The
-> built-in catalog intentionally contains only one reference detector. Reporters
-> and command-line behavior have not been implemented yet.
+> matching engine, production registry architecture, and deterministic reporter
+> are implemented. The built-in catalog intentionally contains only one
+> reference detector. Command-line behavior has not been implemented yet.
 
 ## Workspace
 
 - `packages/core` — shared contracts and deterministic matching engine
 - `packages/registry` — deterministic built-in detector registry and tooling
-- `packages/reporter` — future structured and human-readable output
+- `packages/reporter` — deterministic JSON and human-readable output
 - `packages/cli` — the future command-line entry point
 
 The current detector definition contract is described in
@@ -25,7 +25,8 @@ The current detector definition contract is described in
 ordering, and safety bounds are described in
 [`docs/matching-engine.md`](docs/matching-engine.md). The detector directory
 layout, fixture contract, generated index, and security boundary are described
-in [`docs/registry-architecture.md`](docs/registry-architecture.md).
+in [`docs/registry-architecture.md`](docs/registry-architecture.md). Reporter
+formats and guarantees are described in [`docs/reporter.md`](docs/reporter.md).
 
 The current package names are private workspace names and may change before the
 first public release.

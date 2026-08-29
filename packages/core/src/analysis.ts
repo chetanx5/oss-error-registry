@@ -1,3 +1,9 @@
+import type {
+  DiagnosticStep,
+  DocumentationReference,
+  RemediationSuggestion,
+} from "./detector.js";
+
 export const MAX_ANALYSIS_INPUT_BYTES = 1_048_576;
 export const DEFAULT_MAX_RESULTS = 10;
 export const MAX_ANALYSIS_RESULTS = 100;
@@ -18,6 +24,11 @@ export interface DetectorMatch {
   readonly title: string;
   readonly score: number;
   readonly matchedEvidenceIds: readonly string[];
+  readonly explanation: string;
+  readonly likelyCauses: readonly string[];
+  readonly diagnosticSteps: readonly DiagnosticStep[];
+  readonly remediation: readonly RemediationSuggestion[];
+  readonly documentation: readonly DocumentationReference[];
 }
 
 export interface AnalysisResult {
