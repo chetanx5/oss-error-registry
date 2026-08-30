@@ -2,6 +2,17 @@
   "name": "oss-error-registry",
   "version": "0.0.0",
   "private": true,
+  "description": "Offline-first deterministic diagnostics for developer, build, and deployment errors.",
+  "license": "MIT",
+  "author": "Chetan Narayana",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chetanx5/oss-error-registry.git"
+  },
+  "homepage": "https://github.com/chetanx5/oss-error-registry#readme",
+  "bugs": {
+    "url": "https://github.com/chetanx5/oss-error-registry/issues"
+  },
   "type": "module",
   "packageManager": "pnpm@11.22.0",
   "engines": {
@@ -15,8 +26,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --max-warnings 0",
+    "package:check": "node scripts/package-check.mjs",
     "registry:check": "node packages/registry/scripts/generate-registry-index.mjs --check",
     "registry:generate": "node packages/registry/scripts/generate-registry-index.mjs",
+    "release:check": "pnpm run check && pnpm run package:check",
     "test": "vitest run",
     "typecheck": "tsc --project tsconfig.check.json --noEmit --pretty false"
   },

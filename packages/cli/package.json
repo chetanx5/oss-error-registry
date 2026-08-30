@@ -1,7 +1,25 @@
 {
   "name": "@oss-error-registry/cli",
   "version": "0.0.0",
-  "private": true,
+  "description": "Offline deterministic CLI for diagnosing developer, build, and deployment errors.",
+  "license": "MIT",
+  "author": "Chetan Narayana",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chetanx5/oss-error-registry.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/chetanx5/oss-error-registry/tree/main/packages/cli#readme",
+  "bugs": {
+    "url": "https://github.com/chetanx5/oss-error-registry/issues"
+  },
+  "keywords": [
+    "cli",
+    "diagnostics",
+    "errors",
+    "offline",
+    "developer-tools"
+  ],
   "type": "module",
   "sideEffects": [
     "./dist/bin.js"
@@ -9,17 +27,25 @@
   "bin": {
     "oss-error-registry": "./dist/bin.js"
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "engines": {
     "node": ">=22.13.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@oss-error-registry/core": "workspace:*",

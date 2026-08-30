@@ -11,7 +11,8 @@ deterministic output.
 > **Project status:** the core engine, static production registry, reporter, and
 > bounded file/stdin CLI are implemented. The initial catalog intentionally
 > contains eight high-signal detectors rather than a broad superficial list.
-> Workspace packages remain private and have not been published to npm.
+> Public package metadata and offline package validation are implemented, but no
+> workspace package has been published to npm.
 
 ## What it returns
 
@@ -146,6 +147,17 @@ pnpm registry:check
 all Vitest suites, and the production build. Do not edit
 `packages/registry/src/generated/detectors.ts` manually.
 
+Run the complete release-readiness gate without publishing anything:
+
+```sh
+pnpm release:check
+```
+
+It performs the regular checks, packs every intended public package twice,
+verifies deterministic allowlisted contents, installs the local tarballs into an
+isolated offline consumer, checks declarations and imports, and exercises the
+packaged CLI. Temporary artifacts are removed automatically.
+
 On Windows systems where PowerShell blocks script shims, use `pnpm.cmd` without
 changing the system execution policy.
 
@@ -168,10 +180,17 @@ dependencies, configuration, services, or history is marked for review.
 
 ## Workspace and architecture
 
-- `packages/core` — detector contract and deterministic matching engine
-- `packages/registry` — production detectors, fixture tooling, and static index
-- `packages/reporter` — deterministic pretty and JSON output
-- `packages/cli` — bounded file/stdin command-line composition
+- `@oss-error-registry/core` — detector contract and deterministic matching
+  engine
+- `@oss-error-registry/registry` — production detectors and static runtime index
+- `@oss-error-registry/reporter` — deterministic pretty and JSON output
+- `@oss-error-registry/cli` — bounded file/stdin CLI and executable
+
+The root workspace remains private. The four intended public packages are ESM,
+expose only documented root APIs, and use lockstep Semantic Versioning. Their
+current `0.0.0` version is a development placeholder, not a published release.
+See [`docs/releasing.md`](docs/releasing.md) and [`CHANGELOG.md`](CHANGELOG.md)
+for package boundaries, version policy, and the non-publishing release gate.
 
 Detailed design documents:
 
@@ -180,6 +199,7 @@ Detailed design documents:
 - [`docs/registry-architecture.md`](docs/registry-architecture.md)
 - [`docs/reporter.md`](docs/reporter.md)
 - [`docs/cli.md`](docs/cli.md)
+- [`docs/releasing.md`](docs/releasing.md)
 
 ## License
 

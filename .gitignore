@@ -6,6 +6,7 @@ node_modules/
 dist/
 coverage/
 *.tsbuildinfo
+*.tgz
 
 # Environment and local configuration
 .env
