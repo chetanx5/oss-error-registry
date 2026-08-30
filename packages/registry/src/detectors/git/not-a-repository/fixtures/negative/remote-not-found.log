@@ -1,0 +1,2 @@
+remote: Repository not found.
+fatal: repository 'https://example.invalid/acme/missing.git/' not found

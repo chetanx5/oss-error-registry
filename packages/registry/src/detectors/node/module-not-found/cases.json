@@ -1,0 +1,20 @@
+{
+  "detectorId": "node/module-not-found",
+  "cases": [
+    {
+      "name": "commonjs dependency cannot be resolved",
+      "fixture": "fixtures/positive/require.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "typescript reports its own module resolution error",
+      "fixture": "fixtures/negative/typescript.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}

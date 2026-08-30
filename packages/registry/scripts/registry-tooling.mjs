@@ -327,6 +327,13 @@ export function validateCasesDocument(value, options = {}) {
     });
   });
 
+  if (!cases.some(({ expect }) => expect.match)) {
+    fail(`${fileLabel}.cases`, "must include at least one positive case");
+  }
+  if (!cases.some(({ expect }) => !expect.match)) {
+    fail(`${fileLabel}.cases`, "must include at least one negative case");
+  }
+
   return Object.freeze({
     detectorId: value.detectorId,
     cases: Object.freeze(cases),

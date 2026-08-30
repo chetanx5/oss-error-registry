@@ -50,6 +50,11 @@ function defaultCases(detectorId) {
         fixture: "fixtures/positive/basic.log",
         expect: { match: true, score: 50 },
       },
+      {
+        name: "negative",
+        fixture: "fixtures/negative/basic.log",
+        expect: { match: false },
+      },
     ],
   };
 }
@@ -79,9 +84,16 @@ async function createDetectorTree(root, detectorId, options = {}) {
     "utf8",
   );
 
-  const fixtureEntries = options.fixtures ?? {
-    "fixtures/positive/basic.log": "error text\n",
-  };
+  const fixtureEntries =
+    options.fixtures === undefined
+      ? {
+          "fixtures/positive/basic.log": "error text\n",
+          "fixtures/negative/basic.log": "unrelated text\n",
+        }
+      : {
+          "fixtures/negative/basic.log": "unrelated text\n",
+          ...options.fixtures,
+        };
   for (const [relativePath, contents] of Object.entries(fixtureEntries)) {
     const fixturePath = path.join(
       detectorDirectory,
@@ -397,6 +409,16 @@ describe("registry discovery and generation", () => {
       "detector.ts: required file is missing",
     );
   });
+
+  it("rejects unexpected files in a detector directory", async () => {
+    const root = await createTemporaryRoot();
+    const detectorDirectory = await createDetectorTree(root, "npm/example");
+    await writeFile(path.join(detectorDirectory, "README.md"), "unexpected\n");
+
+    await expect(discoverDetectorDirectories(root)).rejects.toThrowError(
+      'unexpected entry "README.md"',
+    );
+  });
 });
 
 describe("cases.json and fixture validation", () => {
@@ -417,6 +439,34 @@ describe("cases.json and fixture validation", () => {
       ],
     });
     expect(document.cases).toHaveLength(2);
+  });
+
+  it("requires at least one positive and one negative case", () => {
+    expect(() =>
+      validateCasesDocument({
+        detectorId: "npm/example",
+        cases: [
+          {
+            name: "negative only",
+            fixture: "fixtures/negative/basic.log",
+            expect: { match: false },
+          },
+        ],
+      }),
+    ).toThrowError("must include at least one positive case");
+
+    expect(() =>
+      validateCasesDocument({
+        detectorId: "npm/example",
+        cases: [
+          {
+            name: "positive only",
+            fixture: "fixtures/positive/basic.log",
+            expect: { match: true, score: 80 },
+          },
+        ],
+      }),
+    ).toThrowError("must include at least one negative case");
   });
 
   it.each([undefined, null, [], "invalid"])(
@@ -644,6 +694,20 @@ describe("cases.json and fixture validation", () => {
     await createDetectorTree(root, "npm/example", { fixtures: {} });
     await expect(validateRegistryFilesystem(root)).rejects.toThrowError(
       "required file is missing",
+    );
+  });
+
+  it("rejects fixture files that cases.json does not reference", async () => {
+    const root = await createTemporaryRoot();
+    await createDetectorTree(root, "npm/example", {
+      fixtures: {
+        "fixtures/positive/basic.log": "error text\n",
+        "fixtures/positive/unreferenced.log": "other error text\n",
+      },
+    });
+
+    await expect(validateRegistryFilesystem(root)).rejects.toThrowError(
+      "is not referenced by cases.json",
     );
   });
 

@@ -1,0 +1,20 @@
+{
+  "detectorId": "git/non-fast-forward-push",
+  "cases": [
+    {
+      "name": "remote branch rejects a non-fast-forward update",
+      "fixture": "fixtures/positive/basic.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "push rejected with fetch-first reason",
+      "fixture": "fixtures/negative/fetch-first.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}

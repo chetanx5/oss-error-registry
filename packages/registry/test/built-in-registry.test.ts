@@ -92,9 +92,22 @@ describe("generic built-in detector case harness", () => {
         detector?.ecosystem,
         `${entry.detectorId}: ecosystem must match directory ${entry.ecosystem}`,
       ).toBe(entry.ecosystem);
+      expect(
+        entry.cases.some(({ expect }) => expect.match),
+        `${entry.detectorId}: must include a positive case`,
+      ).toBe(true);
+      expect(
+        entry.cases.some(({ expect }) => !expect.match),
+        `${entry.detectorId}: must include a negative case`,
+      ).toBe(true);
 
       for (const caseDefinition of entry.cases) {
         const result = analyze(caseDefinition.fixtureText, [detector!]);
+        const repeatedResult = analyze(caseDefinition.fixtureText, [detector!]);
+        expect(
+          repeatedResult,
+          `${entry.detectorId}: case "${caseDefinition.name}" must be deterministic`,
+        ).toEqual(result);
         const match = result.matches.find(
           ({ detectorId }) => detectorId === entry.detectorId,
         );

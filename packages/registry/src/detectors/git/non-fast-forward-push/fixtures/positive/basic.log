@@ -1,0 +1,5 @@
+To https://example.invalid/acme/project.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://example.invalid/acme/project.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart.

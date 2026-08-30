@@ -1,0 +1,4 @@
+Error: Cannot find module '@acme/config'
+Require stack:
+- /workspace/app.js
+  code: 'MODULE_NOT_FOUND',

@@ -1,0 +1,20 @@
+{
+  "detectorId": "pnpm/outdated-lockfile",
+  "cases": [
+    {
+      "name": "frozen install finds a stale lockfile",
+      "fixture": "fixtures/positive/ci.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "different pnpm lockfile corruption code",
+      "fixture": "fixtures/negative/missing-dependency.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}

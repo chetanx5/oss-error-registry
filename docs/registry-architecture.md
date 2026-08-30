@@ -76,6 +76,7 @@ The format is intentionally strict:
 - `detectorId` must equal the ID derived from the detector directory.
 - `cases` must be a non-empty array, and every case name must be non-empty and
   unique within that detector.
+- Every detector must include at least one positive and one negative case.
 - `fixture` must be a forward-slash relative path with exactly the form
   `fixtures/positive/<file>.log` or `fixtures/negative/<file>.log`; `.txt` is
   also supported. Fixture file names must use portable lowercase letters,
@@ -158,6 +159,16 @@ process racing filesystem checks.
 
 ## Current catalog
 
-Phase 4 contains one reference production detector:
-`npm/eresolve-peer-dependency`. Additional detector families are intentionally
-deferred.
+The initial production catalog contains eight focused detectors:
+
+- `docker/daemon-unavailable`
+- `git/non-fast-forward-push`
+- `git/not-a-repository`
+- `node/module-not-found`
+- `npm/eresolve-peer-dependency`
+- `npm/missing-script`
+- `pnpm/outdated-lockfile`
+- `typescript/cannot-find-module`
+
+The contributor workflow is documented in
+[`../DETECTOR_GUIDE.md`](../DETECTOR_GUIDE.md).
