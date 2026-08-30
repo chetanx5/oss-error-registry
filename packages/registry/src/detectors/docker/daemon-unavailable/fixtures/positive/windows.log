@@ -1,0 +1,1 @@
+error during connect: in the default daemon configuration on Windows, the docker client must be run with elevated privileges to connect: open //./pipe/docker_engine: The system cannot find the file specified.

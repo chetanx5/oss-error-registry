@@ -1,0 +1,20 @@
+{
+  "detectorId": "git/not-a-repository",
+  "cases": [
+    {
+      "name": "git cannot find repository metadata",
+      "fixture": "fixtures/positive/basic.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "remote repository does not exist",
+      "fixture": "fixtures/negative/remote-not-found.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}

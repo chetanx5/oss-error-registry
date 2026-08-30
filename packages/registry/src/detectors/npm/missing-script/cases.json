@@ -1,0 +1,28 @@
+{
+  "detectorId": "npm/missing-script",
+  "cases": [
+    {
+      "name": "npm reports an undefined build script",
+      "fixture": "fixtures/positive/basic.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "legacy npm reports an unquoted missing script",
+      "fixture": "fixtures/positive/legacy.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "yarn reports an unknown command",
+      "fixture": "fixtures/negative/yarn.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}

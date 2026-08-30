@@ -1,0 +1,1 @@
+src/index.ts(2,24): error TS2307: Cannot find module '@acme/config' or its corresponding type declarations.

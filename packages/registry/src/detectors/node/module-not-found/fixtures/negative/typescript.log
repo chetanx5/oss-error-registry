@@ -1,0 +1,1 @@
+src/index.ts(1,25): error TS2307: Cannot find module 'left-pad' or its corresponding type declarations.

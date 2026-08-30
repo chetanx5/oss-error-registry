@@ -1,0 +1,4 @@
+To https://example.invalid/acme/project.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://example.invalid/acme/project.git'
+hint: Updates were rejected because the remote contains work that you do not have locally.

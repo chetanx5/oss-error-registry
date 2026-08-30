@@ -1,0 +1,28 @@
+{
+  "detectorId": "docker/daemon-unavailable",
+  "cases": [
+    {
+      "name": "unix socket daemon is unavailable",
+      "fixture": "fixtures/positive/unix.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "windows engine pipe is unavailable",
+      "fixture": "fixtures/positive/windows.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "image pull authorization failure",
+      "fixture": "fixtures/negative/pull-access-denied.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "detectorId": "typescript/cannot-find-module",
+  "cases": [
+    {
+      "name": "compiler cannot resolve an imported package",
+      "fixture": "fixtures/positive/ts2307.log",
+      "expect": {
+        "match": true,
+        "score": 100
+      }
+    },
+    {
+      "name": "node commonjs loader cannot resolve a package",
+      "fixture": "fixtures/negative/node.log",
+      "expect": {
+        "match": false
+      }
+    }
+  ]
+}

@@ -3,8 +3,22 @@
 
 import type { DetectorDefinition } from "@oss-error-registry/core";
 
+import detector_docker__daemon_unavailable from "../detectors/docker/daemon-unavailable/detector.js";
+import detector_git__non_fast_forward_push from "../detectors/git/non-fast-forward-push/detector.js";
+import detector_git__not_a_repository from "../detectors/git/not-a-repository/detector.js";
+import detector_node__module_not_found from "../detectors/node/module-not-found/detector.js";
 import detector_npm__eresolve_peer_dependency from "../detectors/npm/eresolve-peer-dependency/detector.js";
+import detector_npm__missing_script from "../detectors/npm/missing-script/detector.js";
+import detector_pnpm__outdated_lockfile from "../detectors/pnpm/outdated-lockfile/detector.js";
+import detector_typescript__cannot_find_module from "../detectors/typescript/cannot-find-module/detector.js";
 
 export const builtInDetectors: readonly DetectorDefinition[] = Object.freeze([
+  detector_docker__daemon_unavailable,
+  detector_git__non_fast_forward_push,
+  detector_git__not_a_repository,
+  detector_node__module_not_found,
   detector_npm__eresolve_peer_dependency,
+  detector_npm__missing_script,
+  detector_pnpm__outdated_lockfile,
+  detector_typescript__cannot_find_module,
 ]);
