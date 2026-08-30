@@ -15,8 +15,9 @@ duplicate detector discovery, matching, scoring, or report formatting.
 
 ## Development invocation
 
-The workspace packages are private and have not been published to npm. From a
-repository checkout, install dependencies, build, and invoke the local command:
+The CLI package has release-ready metadata but has not been published to npm.
+From a repository checkout, install dependencies, build, and invoke the local
+command:
 
 ```sh
 pnpm install
@@ -42,7 +43,7 @@ Supported arguments and options:
 - `--format pretty` selects the default human-readable report.
 - `--format json` selects the stable versioned JSON report.
 - `--help` or `-h` writes help to stdout.
-- `--version` or `-V` writes the private package's current version to stdout.
+- `--version` or `-V` writes the package's current version to stdout.
 - `--` ends option parsing, allowing a file name beginning with `-`.
 
 Exactly one explicit input path or stdin marker is accepted. A positional file
