@@ -81,8 +81,8 @@ export default defineDetector({
   ],
   documentation: [
     {
-      title: "npm run-script command",
-      url: "https://docs.npmjs.com/cli/v11/commands/npm-run-script/",
+      title: "npm run command",
+      url: "https://docs.npmjs.com/cli/v11/commands/npm-run/",
     },
   ],
 });

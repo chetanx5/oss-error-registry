@@ -13,21 +13,28 @@ builtInDetectors -> analyze() -> formatPretty() or formatJson() -> stdout
 The CLI owns argument parsing and bounded input reads only. It does not
 duplicate detector discovery, matching, scoring, or report formatting.
 
-## Development invocation
+## Installation and development invocation
 
-The CLI package has release-ready metadata but has not been published to npm.
-From a repository checkout, install dependencies, build, and invoke the local
-command:
+Version `0.1.0` is prepared but has not been published to npm. After an
+explicitly authorized publication, the package is configured for:
 
 ```sh
-pnpm install
+npx @oss-error-registry/cli --help
+npx @oss-error-registry/cli error.log
+```
+
+These commands document the prepared package interface rather than current npm
+availability. From a repository checkout today, install dependencies, build, and
+invoke the local command:
+
+```sh
+pnpm install --frozen-lockfile
 pnpm build
 pnpm cli --help
 ```
 
-The package manifest declares the eventual executable name `oss-error-registry`,
-while the root `pnpm cli` script runs the built local entry point during
-development.
+The package manifest declares the executable name `oss-error-registry`, while
+the root `pnpm cli` script runs the built local entry point during development.
 
 ## Usage
 

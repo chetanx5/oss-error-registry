@@ -3,6 +3,10 @@
 Thank you for helping OSS Error Registry diagnose real developer errors without
 network services or nondeterministic logic.
 
+Participation is governed by [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+Security-sensitive reports must follow [`SECURITY.md`](SECURITY.md) rather than
+being disclosed in a public issue.
+
 ## Before opening a change
 
 - Use Node.js 22.13.0 or newer and pnpm 11 or newer.
@@ -67,4 +71,6 @@ display-only metadata and must be conservative, reviewable, and clearly marked
 with the appropriate remediation safety level.
 
 Changes to core matching semantics, reporter formats, the CLI contract, or the
-registry architecture should be proposed separately from detector additions.
+registry architecture should be proposed separately from detector additions. The
+package boundaries and dependency direction are documented in
+[`ARCHITECTURE.md`](ARCHITECTURE.md).

@@ -1,6 +1,6 @@
 {
   "name": "@oss-error-registry/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Detector contracts and deterministic bounded matching for OSS Error Registry.",
   "license": "MIT",
   "author": "Chetan Narayana",

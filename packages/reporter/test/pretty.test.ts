@@ -47,7 +47,7 @@ describe("formatPretty", () => {
         "       Command: npm install <package-name>@<compatible-version>",
         "  Documentation:",
         "    1. npm peer dependency documentation",
-        "       URL: https://docs.npmjs.com/files/package.json#peerdependencies",
+        "       URL: https://docs.npmjs.com/cli/v11/configuring-npm/package-json/#peerdependencies",
       ].join("\n"),
     );
   });

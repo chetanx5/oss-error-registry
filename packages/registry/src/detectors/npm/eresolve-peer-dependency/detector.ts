@@ -63,7 +63,7 @@ export default defineDetector({
   documentation: [
     {
       title: "npm peer dependency configuration",
-      url: "https://docs.npmjs.com/files/package.json#peerdependencies",
+      url: "https://docs.npmjs.com/cli/v11/configuring-npm/package-json/#peerdependencies",
     },
   ],
 });

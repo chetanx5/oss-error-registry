@@ -116,7 +116,7 @@ describe("CLI metadata", () => {
 
     expect(await runCli([option], capture.runtime)).toBe(CLI_EXIT_CODE.SUCCESS);
     expect(capture.output).toEqual({
-      stdout: "oss-error-registry 0.0.0\n",
+      stdout: "oss-error-registry 0.1.0\n",
       stderr: "",
     });
   });

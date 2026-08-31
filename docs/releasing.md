@@ -16,10 +16,10 @@ lockstep version when packed.
 
 ## Current publication status
 
-No package has been published. Version `0.0.0` is deliberately retained as a
-development placeholder until an initial release version and npm ownership are
-explicitly approved. This repository contains no publishing workflow, npm token
-requirement, release creation, or lifecycle script.
+No package has been published. All four public packages are prepared at the
+lockstep initial development version `0.1.0`; changing the manifests did not
+publish or reserve those names. This repository contains no publishing workflow,
+npm token requirement, release creation, or lifecycle script.
 
 ## Semantic Versioning policy
 
@@ -34,8 +34,8 @@ After an initial version is selected, all four packages advance together:
   contracts, output schemas, or compatibility guarantees after `1.0.0`.
 
 A release changes every public package manifest, the CLI version constant, the
-lockfile when necessary, and this changelog in one reviewed change. A version
-must never be reused after publication.
+root project version, the lockfile when necessary, and this changelog in one
+reviewed change. A version must never be reused after publication.
 
 ## Local release gate
 
@@ -69,4 +69,5 @@ credentials, or contact a package registry.
 
 Publication remains a separate, explicitly authorized manual decision. This
 document intentionally provides no publishing command while the packages are
-unpublished.
+unpublished. Before that decision, verify npm scope ownership, authentication,
+the exact tag and release notes, and the clean commit intended for publication.

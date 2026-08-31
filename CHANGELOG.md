@@ -6,8 +6,11 @@ packages on one lockstep version.
 
 ## Unreleased
 
-The repository is release-ready but has not been published to npm. The initial
-release candidate currently provides:
+No changes have been recorded after the prepared initial release candidate.
+
+## 0.1.0 - prepared, not published
+
+The initial development release candidate provides:
 
 - a bounded deterministic matching engine and contributor detector contract;
 - a filesystem-free static registry with eight production detectors;
@@ -18,6 +21,10 @@ release candidate currently provides:
 - contributor documentation and GitHub contribution templates; and
 - deterministic package packing, offline clean-install tests, declaration
   checks, and packaged CLI smoke tests.
+
+It also includes release-quality root and package documentation, explicit
+architecture and security policies, and a public roadmap. No package, tag, or
+GitHub release is created by preparing this changelog entry.
 
 Supported detectors are listed in the repository
 [README](README.md#supported-catalog). No broader ecosystem support is claimed.
