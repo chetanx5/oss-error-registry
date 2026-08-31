@@ -1,6 +1,6 @@
 {
   "name": "@oss-error-registry/cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Offline deterministic CLI for diagnosing developer, build, and deployment errors.",
   "license": "MIT",
   "author": "Chetan Narayana",

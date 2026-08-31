@@ -16,7 +16,7 @@ import { fileURLToPath, URL } from "node:url";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const rootLicensePath = path.join(repositoryRoot, "LICENSE");
-const packageVersion = "0.0.0";
+const packageVersion = "0.1.0";
 const repositoryUrl = "git+https://github.com/chetanx5/oss-error-registry.git";
 const packageDefinitions = Object.freeze([
   Object.freeze({
@@ -209,6 +209,10 @@ async function validateSourceMetadata() {
   await assertRegularFile(rootLicensePath, "workspace LICENSE");
   const rootManifest = await readJson(rootManifestPath);
   assert(rootManifest.private === true, "workspace root must remain private");
+  assert(
+    rootManifest.version === packageVersion,
+    `workspace version must match release version ${packageVersion}`,
+  );
   assert(
     rootManifest.packageManager === "pnpm@11.22.0",
     "workspace packageManager must remain pinned",
@@ -590,7 +594,7 @@ async function validateConsumer(
     `${JSON.stringify(
       {
         name: "release-readiness-consumer",
-        version: "0.0.0",
+        version: packageVersion,
         private: true,
         type: "module",
         dependencies,

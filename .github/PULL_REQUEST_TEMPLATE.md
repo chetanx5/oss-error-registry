@@ -2,6 +2,11 @@
 
 Describe the focused change and why it is needed.
 
+By participating, contributors agree to follow
+[`CODE_OF_CONDUCT.md`](https://github.com/chetanx5/oss-error-registry/blob/main/CODE_OF_CONDUCT.md).
+Do not include vulnerability details in a pull request; follow
+[`SECURITY.md`](https://github.com/chetanx5/oss-error-registry/blob/main/SECURITY.md).
+
 ## Detector checklist
 
 If this pull request adds or changes a detector, confirm:
@@ -21,6 +26,8 @@ If this pull request adds or changes a detector, confirm:
 ## Validation
 
 - [ ] `pnpm check`
+- [ ] `pnpm release:check` when package metadata, public APIs, or packaging
+      changes
 - [ ] `git diff --check`
 
 ## Known limitations

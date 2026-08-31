@@ -38,7 +38,7 @@ export function createMatch(
     documentation: [
       {
         title: "npm peer dependency documentation",
-        url: "https://docs.npmjs.com/files/package.json#peerdependencies",
+        url: "https://docs.npmjs.com/cli/v11/configuring-npm/package-json/#peerdependencies",
       },
     ],
     ...overrides,
