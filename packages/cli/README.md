@@ -4,12 +4,13 @@ The offline deterministic command-line interface for OSS Error Registry. It
 composes the bounded analyzer, static production registry, and reporter behind
 the `oss-error-registry` executable.
 
-> Version `0.1.0` is prepared but has not yet been published to npm. Requires
-> Node.js 22.13.0 or newer and uses ESM.
+> Version `0.1.1` is prepared as an installability hotfix but has not yet been
+> published. Do not use `0.1.0`, whose public manifest retained `workspace:*`.
+> Requires Node.js 22.13.0 or newer and uses ESM.
 
 ## Run
 
-After publication:
+After the `0.1.1` publication:
 
 ```sh
 npx @oss-error-registry/cli error.log

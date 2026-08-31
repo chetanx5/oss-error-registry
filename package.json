@@ -1,6 +1,6 @@
 {
   "name": "oss-error-registry",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Offline-first deterministic diagnostics for developer, build, and deployment errors.",
   "license": "MIT",

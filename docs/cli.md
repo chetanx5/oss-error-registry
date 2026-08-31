@@ -15,17 +15,19 @@ duplicate detector discovery, matching, scoring, or report formatting.
 
 ## Installation and development invocation
 
-Version `0.1.0` is prepared but has not been published to npm. After an
-explicitly authorized publication, the package is configured for:
+Version `0.1.1` is prepared as an installability hotfix but has not been
+published. Version `0.1.0` exposed unresolved workspace dependency
+specifications and must not be used. After an explicitly authorized `0.1.1`
+publication, the package is configured for:
 
 ```sh
 npx @oss-error-registry/cli --help
 npx @oss-error-registry/cli error.log
 ```
 
-These commands document the prepared package interface rather than current npm
-availability. From a repository checkout today, install dependencies, build, and
-invoke the local command:
+These commands document the prepared `0.1.1` package interface rather than its
+current npm availability. From a repository checkout today, install
+dependencies, build, and invoke the local command:
 
 ```sh
 pnpm install --frozen-lockfile

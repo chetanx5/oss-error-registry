@@ -8,10 +8,11 @@ database, login, telemetry, analytics, or runtime network service. Detection
 uses versioned declarative signatures, bounded matching, committed fixtures, and
 stable output.
 
-> **Release status:** version `0.1.0` is prepared for its initial development
-> release, but the packages have not been published to npm. The source tree and
-> local package tarballs are fully validated; publication remains a separate,
-> explicitly authorized step.
+> **Release status:** version `0.1.1` is prepared as an installability hotfix
+> but has not been published. Do not install `0.1.0`: that release exposed pnpm
+> `workspace:*` dependency specifications in its public manifests. The hotfix
+> retains those specifications in source and verifies pnpm's rewritten tarball
+> manifests before publication.
 
 ## Why deterministic diagnostics?
 
@@ -73,7 +74,8 @@ Requirements:
 
 ### From the repository today
 
-Until the packages are explicitly published, install and run from a checkout:
+Until the `0.1.1` hotfix is explicitly published, install and run from a
+checkout:
 
 ```sh
 git clone https://github.com/chetanx5/oss-error-registry.git
@@ -83,9 +85,9 @@ pnpm build
 pnpm cli --help
 ```
 
-### Intended npm invocation after publication
+### Intended npm invocation after the hotfix is published
 
-Once `@oss-error-registry/cli` version `0.1.0` is published, the package is
+Once `@oss-error-registry/cli` version `0.1.1` is published, the package is
 prepared for this invocation:
 
 ```sh
@@ -93,8 +95,9 @@ npx @oss-error-registry/cli error.log
 some-command 2>&1 | npx @oss-error-registry/cli
 ```
 
-These npm commands describe the prepared package interface; they are not a claim
-that the package is already available in the npm registry.
+These commands describe the prepared `0.1.1` package interface. Version `0.1.0`
+cannot be installed because its internal workspace dependency specifications
+were not rewritten during publication.
 
 ## CLI usage
 
@@ -245,10 +248,11 @@ git diff --check
 
 `pnpm check` verifies registry drift, formatting, linting, strict TypeScript,
 all Vitest suites, and the production build. `pnpm release:check` additionally
-packs every public package twice, verifies deterministic allowlisted contents,
-installs local tarballs into an isolated offline consumer with lifecycle scripts
-disabled, checks runtime imports and declarations, and exercises the packaged
-CLI. It does not publish anything.
+packs every public package twice with pnpm, rejects any packed `workspace:`
+protocol, verifies exact lockstep internal dependency versions and deterministic
+allowlisted contents, installs local tarballs into an isolated offline consumer
+with lifecycle scripts disabled, checks runtime imports and declarations, and
+exercises the packaged CLI. It does not publish anything.
 
 On Windows, use `pnpm.cmd` if PowerShell blocks script shims; do not change the
 system execution policy for this repository.
@@ -293,9 +297,9 @@ guidance.
 
 ## Project status and roadmap
 
-Version `0.1.0` is an initial development release candidate. The engine,
-registry, reporter, CLI, contributor workflow, and offline packaging smoke tests
-are implemented. The project does not claim API stability equivalent to a
+Version `0.1.1` is a prepared hotfix for the installability defect in `0.1.0`.
+The engine, registry, reporter, CLI, contributor workflow, and offline packaging
+checks are implemented. The project does not claim API stability equivalent to a
 `1.0.0` release or universal detector coverage.
 
 Planned work is tracked in [`ROADMAP.md`](ROADMAP.md). Changes prioritize real

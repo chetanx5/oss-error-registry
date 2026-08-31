@@ -6,10 +6,11 @@ data and must remain inert throughout matching and reporting.
 
 ## Supported versions
 
-Before the first npm publication, security fixes are applied to the current
-`main` branch. After the `0.1.0` packages are published, the latest `0.1.x`
-release and `main` will receive security fixes. This policy will be updated when
-the compatibility or release strategy changes.
+Security fixes are applied to the current `main` branch and, once available, the
+latest installable `0.1.x` release. Version `0.1.0` is not supported because its
+published internal dependency specifications make the package set unsuitable for
+installation. This policy will be updated when the compatibility or release
+strategy changes.
 
 ## Reporting a vulnerability
 

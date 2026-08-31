@@ -118,11 +118,14 @@ TypeScript project references build declarations, declaration maps, JavaScript,
 and source maps into each package's ignored `dist/` directory. Public manifests
 allowlist only `dist`, `LICENSE`, and `README.md`.
 
-`pnpm release:check` builds and packs all four packages twice, compares their
-allowlisted contents, rejects unsafe source-map paths, installs the tarballs
-into an isolated offline consumer with lifecycle scripts disabled, verifies
-imports and declarations, and exercises the packaged CLI. Publication, tagging,
-and release creation are intentionally outside that command.
+`pnpm release:check` builds and packs all four packages twice with pnpm,
+directly validates the manifests stored in the tarballs, rejects any unresolved
+`workspace:` protocol or non-exact internal dependency, compares allowlisted
+contents, rejects unsafe source-map paths, installs the tarballs into an
+isolated offline consumer with lifecycle scripts disabled, verifies imports and
+declarations, and exercises the packaged CLI. Publication must use pnpm so its
+workspace rewriting remains part of the release boundary. Tagging and release
+creation remain separate operations.
 
 ## Security model
 
