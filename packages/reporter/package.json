@@ -1,6 +1,6 @@
 {
   "name": "@oss-error-registry/reporter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Deterministic pretty and JSON reporting for OSS Error Registry analyses.",
   "license": "MIT",
   "author": "Chetan Narayana",

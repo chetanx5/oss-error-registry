@@ -3,12 +3,13 @@
 Detector contracts, runtime validation, and the bounded deterministic matching
 engine for OSS Error Registry.
 
-> Version `0.1.0` is prepared but has not yet been published to npm. Requires
-> Node.js 22.13.0 or newer and uses ESM.
+> Version `0.1.1` is prepared as an installability hotfix but has not yet been
+> published. Do not use the `0.1.0` package set. Requires Node.js 22.13.0 or
+> newer and uses ESM.
 
 ## Install
 
-After publication:
+After the `0.1.1` publication:
 
 ```sh
 npm install @oss-error-registry/core

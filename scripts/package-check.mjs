@@ -14,9 +14,11 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath, URL } from "node:url";
 
+import { assertPackedManifest } from "./packed-manifest-validation.mjs";
+
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const rootLicensePath = path.join(repositoryRoot, "LICENSE");
-const packageVersion = "0.1.0";
+const packageVersion = "0.1.1";
 const repositoryUrl = "git+https://github.com/chetanx5/oss-error-registry.git";
 const packageDefinitions = Object.freeze([
   Object.freeze({
@@ -383,6 +385,31 @@ function readArchiveEntry(archivePath, entry) {
   }).stdout;
 }
 
+function validateArchiveManifest(archivePath, definition) {
+  let manifest;
+  try {
+    manifest = JSON.parse(
+      readArchiveEntry(archivePath, "package/package.json"),
+    );
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    fail(`${definition.name} packed package.json is invalid: ${detail}`);
+  }
+
+  try {
+    assertPackedManifest(manifest, {
+      name: definition.name,
+      version: packageVersion,
+      dependencyNames: Object.keys(definition.dependencies),
+    });
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    fail(detail);
+  }
+
+  return manifest;
+}
+
 async function expectedArchiveEntries(definition) {
   const distRoot = path.join(
     repositoryRoot,
@@ -473,6 +500,13 @@ async function validateArchives(firstArchives, secondArchives) {
       secondEntries,
       firstEntries,
       `${definition.name} repeated tarball has different entries`,
+    );
+    const firstManifest = validateArchiveManifest(firstPath, definition);
+    const secondManifest = validateArchiveManifest(secondPath, definition);
+    assertJsonEqual(
+      secondManifest,
+      firstManifest,
+      `${definition.name} repeated packed manifest changed semantically`,
     );
 
     if (sha256(firstContents) !== sha256(secondContents)) {
@@ -836,7 +870,7 @@ async function main() {
   }
 
   process.stdout.write(
-    "Release package check passed: 4 deterministic package content sets, offline clean install, runtime imports, declarations, and CLI.\n",
+    "Release package check passed: 4 deterministic package content sets, exact packed semver dependencies without workspace protocols, offline clean install, runtime imports, declarations, and CLI.\n",
   );
 }
 

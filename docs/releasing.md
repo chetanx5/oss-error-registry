@@ -16,9 +16,11 @@ lockstep version when packed.
 
 ## Current publication status
 
-No package has been published. All four public packages are prepared at the
-lockstep initial development version `0.1.0`; changing the manifests did not
-publish or reserve those names. This repository contains no publishing workflow,
+Version `0.1.0` was published with literal `workspace:*` specifications in the
+registry, reporter, and CLI manifests because the publication command bypassed
+pnpm's workspace rewriting. That package set is not installable. All four public
+packages are now prepared at the lockstep hotfix version `0.1.1`; the hotfix has
+not been published. This repository contains no automated publishing workflow,
 npm token requirement, release creation, or lifecycle script.
 
 ## Semantic Versioning policy
@@ -51,15 +53,19 @@ git status --short
 and build gates, then:
 
 1. validates root and public package metadata;
-2. packs every public package twice and compares their allowlisted contents,
-   requiring byte-identical files except for semantically identical
-   `package.json` key ordering produced by pnpm;
-3. enforces each tarball's file allowlist and source-map path safety;
-4. installs all tarballs into an isolated temporary consumer using pnpm's
+2. packs every public package twice with pnpm and directly validates the
+   `package.json` stored in each resulting tarball;
+3. rejects any packed `workspace:` protocol and requires the exact lockstep
+   version for every internal dependency;
+4. compares the tarballs' allowlisted contents, requiring byte-identical files
+   except for semantically identical `package.json` key ordering produced by
+   pnpm;
+5. enforces each tarball's file allowlist and source-map path safety;
+6. installs all tarballs into an isolated temporary consumer using pnpm's
    offline mode with lifecycle scripts disabled;
-5. imports every installed public package without workspace path aliases;
-6. resolves the packaged TypeScript declarations; and
-7. exercises the installed CLI's help, version, file, stdin, pretty, JSON,
+7. imports every installed public package without workspace path aliases;
+8. resolves the packaged TypeScript declarations; and
+9. exercises the installed CLI's help, version, file, stdin, pretty, JSON,
    positive-match, and deterministic no-match paths.
 
 Temporary tarballs, the isolated pnpm store, and consumer files are created
@@ -67,7 +73,23 @@ under an operating-system temporary directory and removed in a `finally`
 cleanup. The command does not publish, tag, push, create a release, read npm
 credentials, or contact a package registry.
 
-Publication remains a separate, explicitly authorized manual decision. This
-document intentionally provides no publishing command while the packages are
-unpublished. Before that decision, verify npm scope ownership, authentication,
-the exact tag and release notes, and the clean commit intended for publication.
+## Manual publication
+
+Publication remains a separate, explicitly authorized decision. Before running
+it, verify npm scope ownership and authentication, release notes, the exact
+version, a clean reviewed release commit, and a passing `pnpm release:check`.
+
+Publish with pnpm, in dependency order, so `workspace:*` is rewritten in the
+public manifests:
+
+```sh
+pnpm --filter @oss-error-registry/core publish --access public
+pnpm --filter @oss-error-registry/registry publish --access public
+pnpm --filter @oss-error-registry/reporter publish --access public
+pnpm --filter @oss-error-registry/cli publish --access public
+```
+
+Do not substitute a different package-manager publishing command. Do not bypass
+Git checks, reuse a version, or publish unless that exact release has been
+authorized. Tags and GitHub releases are separate reviewed steps after the npm
+registry state has been verified.

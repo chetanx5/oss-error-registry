@@ -75,7 +75,7 @@ describe("release package metadata", () => {
   it("keeps only the workspace root private", async () => {
     const root = await readManifest("package.json");
     expect(root.private).toBe(true);
-    expect(root.version).toBe("0.1.0");
+    expect(root.version).toBe("0.1.1");
     expect(root.packageManager).toBe("pnpm@11.22.0");
 
     for (const definition of packageDefinitions) {
@@ -92,7 +92,7 @@ describe("release package metadata", () => {
         `packages/${definition.directory}/package.json`,
       );
       expect(manifest.name).toBe(definition.name);
-      expect(manifest.version).toBe("0.1.0");
+      expect(manifest.version).toBe("0.1.1");
       expect(manifest.description).toBeTypeOf("string");
       expect(manifest.license).toBe("MIT");
       expect(manifest.author).toBe("Chetan Narayana");
@@ -235,6 +235,10 @@ describe("release package metadata", () => {
       fromRoot("scripts/package-check.mjs"),
       "utf8",
     );
+    const releasingGuide = await readFile(
+      fromRoot("docs/releasing.md"),
+      "utf8",
+    );
 
     expect(source).toContain("shell: false");
     expect(source).toContain('"--offline"');
@@ -247,7 +251,18 @@ describe("release package metadata", () => {
     expect(source).toContain(
       "await rm(temporaryRoot, { recursive: true, force: true })",
     );
+    expect(source).toContain(
+      'readArchiveEntry(archivePath, "package/package.json")',
+    );
+    expect(source).toContain("assertPackedManifest(manifest");
     expect(source).not.toMatch(/node:(?:http|https|net|tls|dns)/u);
     expect(source).not.toMatch(/\b(?:npm|pnpm)\s+publish\b/u);
+    expect(releasingGuide).not.toContain("npm publish");
+    expect(releasingGuide).toContain(
+      "pnpm --filter @oss-error-registry/core publish --access public",
+    );
+    expect(releasingGuide).toContain(
+      "pnpm --filter @oss-error-registry/cli publish --access public",
+    );
   });
 });
