@@ -1,0 +1,49 @@
+name: Check OpenSSF Criticality Score
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: false
+
+      - name: Install official OpenSSF tool
+        run: |
+          go install github.com/ossf/criticality_score/v2/cmd/criticality_score@latest
+          "$(go env GOPATH)/bin/criticality_score" -version
+
+      - name: Calculate repository score
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          "$(go env GOPATH)/bin/criticality_score" \
+            -depsdev-disable \
+            -format text \
+            https://github.com/chetanx5/oss-error-registry \
+            | tee criticality-score.txt
+
+          {
+            echo '## OpenSSF Criticality Score'
+            echo 'Repository: chetanx5/oss-error-registry'
+            echo 'Configuration: default; deps.dev collection disabled'
+            echo '```text'
+            cat criticality-score.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
